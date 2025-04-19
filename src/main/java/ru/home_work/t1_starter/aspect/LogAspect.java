@@ -15,7 +15,6 @@ import ru.home_work.t1_starter.aspect.annotations.LogReturning;
 
 import java.util.Arrays;
 
-@Component
 @Aspect
 public class LogAspect {
 

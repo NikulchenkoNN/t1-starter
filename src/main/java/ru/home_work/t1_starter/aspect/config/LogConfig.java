@@ -1,6 +1,7 @@
 package ru.home_work.t1_starter.aspect.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +22,13 @@ public class LogConfig {
     private final LogProperties logProperties;
 
     @Bean
-    public LogAspect logAspect() {
+    public LogAspect logAspect(@Value("${logger.level}") String level) {
+        if (level == null || level.length() == 0) {
+            logProperties.setLevel("INFO");
+        } else {
+            level = level.toUpperCase();
+            logProperties.setLevel(level);
+        }
         return new LogAspect(logProperties.getLevel());
     }
 }
